@@ -1,0 +1,38 @@
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left;
+}
+
+.user-button:hover {
+    transform:scale(1.03);
+}
+
+.user-button {
+    border: 1px solid #dddddd;
+    padding: 20px;
+    font-size: 120%;
+    height: 50px;
+    transition: all 0.3s;
+}
+
+td, th {
+    padding-right: 20px;
+    padding-left: 40px;
+}
+
+.user-button:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.online-dot {
+    color: green;
+    font-size: 30pt;
+}
+
+.offline-dot {
+    color: red;
+    font-size: 30pt;
+}

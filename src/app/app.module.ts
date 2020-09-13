@@ -1,16 +1,53 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, OnInit } from '@angular/core';
+import { ReactiveFormsModule }    from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'
 import { AppComponent } from './app.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { ProfileComponent } from './profile/profile.component';
+
+import { AlertComponent } from './_directives';
+import { AlertService, UserService } from './_services';
+
+import { RouterModule } from '@angular/router';
+import { AuthGuardService } from './_services/auth-guard.service';
+import { LoginComponent } from './login/login.component';
+import { GuestGuardService } from './_services/guest-guard.service';
+import { AuthService } from './_services/auth.service';
+import { AuthInterceptor } from './_services/auth.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UsersListComponent,
+    ProfileComponent,
+    AlertComponent,
+    LoginComponent
   ],
   imports: [
-    BrowserModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserModule,
+    RouterModule.forRoot([
+      { path: 'users-list', component: UsersListComponent, canActivate: [ AuthGuardService ] },
+      { path: 'profile/:id', component: ProfileComponent, canActivate: [ AuthGuardService ] },
+      { path: '', pathMatch: 'full' ,redirectTo:'users-list', canActivate: [ AuthGuardService ]},
+      { path: 'login', component: LoginComponent, canActivate: [ GuestGuardService ] }
+    ]),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AlertService,
+    UserService,
+    AuthService,
+    AuthGuardService,
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
+

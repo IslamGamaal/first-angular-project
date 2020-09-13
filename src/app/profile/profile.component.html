@@ -1,0 +1,18 @@
+<div class="profile-container">
+  <h1>{{user?.name}} Profile</h1>
+  <br/>
+  <span>id : </span><span>{{user?.id}}</span>
+  <br/>
+  <span>First Name : </span><span>{{user?.name.substring(0, user.name.indexOf(' '))}}</span>
+  <br/>
+  <span>Last Name : </span><span>{{user?.name.substring(user.name.indexOf(' ') + 1, user.name.length)}}</span>
+  <br/>
+  <span>Phone Number : </span><span>{{user?.phoneNumber}}</span>
+  <br/>
+  <span>Email : </span><span>{{user?.email}}</span>
+  <br/>
+  <span>Created at : </span><span>{{user?.created_at}}</span>
+  <br/>
+</div>
+<br />
+<button routerLink="" type="button" class="btn btn-secondary">Back to users list</button>
