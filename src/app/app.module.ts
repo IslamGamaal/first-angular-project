@@ -7,8 +7,7 @@ import { AppComponent } from './app.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { AlertComponent } from './_directives';
-import { AlertService, UserService } from './_services';
+import { UserService } from './_services';
 
 import { RouterModule } from '@angular/router';
 import { AuthGuardService } from './_services/auth-guard.service';
@@ -22,7 +21,6 @@ import { AuthInterceptor } from './_services/auth.interceptor';
     AppComponent,
     UsersListComponent,
     ProfileComponent,
-    AlertComponent,
     LoginComponent
   ],
   imports: [
@@ -37,7 +35,6 @@ import { AuthInterceptor } from './_services/auth.interceptor';
     ]),
   ],
   providers: [
-    AlertService,
     UserService,
     AuthService,
     AuthGuardService,
