@@ -3,13 +3,13 @@
         <div class="col d-flex flex-row justify-content-center align-content-center pt-5 pb-5">
             <div class="card">
                 <div class="card-body">
-                    <form [formGroup]="form" (submit)="login()">
+                    <form #loginForm=ngForm (submit)="login()">
                         <h5 class="card-title">Login</h5>
                        
                         <div class="row" *ngIf="errors">
                             <div class="col">
                                 <div class="alert alert-danger">
-                                    <strong>Oops!</strong> You have entered invalid credentials
+                                    <strong>Oops!</strong> {{errorMsg}}
                                 </div>
                             </div>
                         </div>
@@ -17,17 +17,20 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="email">Email address</label>
-                                    <input type="email" id="email" formControlName="email" class="form-control" />
+                                    <input type="email" id="email" placeholder="Email" name="email" class="form-control" [(ngModel)]="form.email" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group input-lg">
                                     <label for="password">Password</label>
-                                    <input type="password" id="password" formControlName="password" class="form-control" />
+                                    <input type="password" id="password" placeholder="Password" name="password" class="form-control input-lg" [(ngModel)]="form.password" required/>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col d-flex flex-row justify-content-center align-content-center">
-                                <button type="submit" class="btn btn-dark col-12" [disabled]="loading">Login</button>
+                                <button type="submit" class="btn btn-primary col-12" [disabled]="loading">Login</button>
+                            </div>
+                            <div class="col d-flex flex-row justify-content-center align-content-center">
+                                <a routerLink="/signup" class="btn btn-dark col-12">Sign up</a>
                             </div>
                         </div>
                     </form>

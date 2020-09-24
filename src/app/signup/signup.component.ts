@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { LocalStorageService } from '../_services/local-storage.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
 
-  // Variables
   public form = {
+    name: null,
+    firstName: null, 
+    lastName: null,
     email: null,
     password: null,
-  };
+    password_confirmation: null
+  }
   loading: boolean;
   errors: boolean;
   public errorMsg = null;
@@ -24,17 +26,19 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private localStorage: LocalStorageService
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit(): void { }
 
   /**
    * Login the user based on the form values
    */
-  login(): void {
+  signup(): void {
     this.loading = true;
     this.errors = false;
-    this.authService.login(this.form)
+    this.authService.signup(this.form)
       .subscribe((res: any) => {
         this.localStorage.setToken(res.access_token);
         this.loading = false;
@@ -42,7 +46,8 @@ export class LoginComponent implements OnInit {
       }, (err: any) => {
         this.loading = false;
         this.errors = true;
-        this.errorMsg = err.error.error;
+        this.errorMsg = err.error.errors;
       });
   }
+
 }

@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col d-flex flex-row justify-content-center align-content-center pt-5 pb-5">
+      <div class="card">
+        <div class="card-body">
+          <form #signupForm=ngForm (submit)="signup()">
+            <h5 class="card-title">Register form</h5>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <div class="row" *ngIf="errorMsg?.firstName">
+                    <div class="col">
+                      <div class="alert alert-danger">
+                         {{errorMsg.firstName}}
+                      </div>
+                    </div>
+                  </div>
+                  <input type="text" id="firstName" placeholder="First Name" name="firstName" class="form-control"
+                    [(ngModel)]="form.firstName" required />
+                </div>
+
+
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <div class="row" *ngIf="errorMsg?.lastName">
+                    <div class="col">
+                      <div class="alert alert-danger">
+                         {{errorMsg.lastName}}
+                      </div>
+                    </div>
+                  </div>
+                  <input type="text" id="lastName" placeholder="Last Name" name="lastName" class="form-control"
+                    [(ngModel)]="form.lastName" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <div class="row" *ngIf="errorMsg?.email">
+                    <div class="col">
+                      <div class="alert alert-danger">
+                         {{errorMsg.email}}
+                      </div>
+                    </div>
+                  </div>
+                  <input type="email" id="email" placeholder="Email" name="email" class="form-control"
+                    [(ngModel)]="form.email" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <div class="row" *ngIf="errorMsg?.password">
+                    <div class="col">
+                      <div class="alert alert-danger">
+                         {{errorMsg.password}}
+                      </div>
+                    </div>
+                  </div>
+                  <input type="password" id="password" placeholder="Password" name="password" class="form-control"
+                    [(ngModel)]="form.password" required />
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password</label>
+                  <input type="password" id="confirmPassword" placeholder="Confirm password" name="confirmPassword"
+                    class="form-control" [(ngModel)]="form.password_confirmation" required />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex flex-row justify-content-center align-content-center">
+                <button type="submit" class="btn btn-primary col-12">Sign up</button>
+              </div>
+              <div class="col d-flex flex-row justify-content-center align-content-center">
+                <a routerLink="/login" class="btn btn-dark col-12">Return back to Login</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

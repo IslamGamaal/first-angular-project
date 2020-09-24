@@ -8,12 +8,14 @@
       <th>Name</th>
       <th>Status</th>
     </tr>
-    <tr class="user-button" *ngFor="let user of users" [routerLink]="['/profile/', user.id]">
+    <tr class="user-button" *ngFor="let user of users | paginate: { itemsPerPage: limit, currentPage: p, totalItems: pageCount }" [routerLink]="['/profile/', user.id]">
       <td>{{user.email}}</td>
       <td>{{user.name.substring(0, user.name.indexOf(' ')) + " " + user.name.substring(user.name.indexOf(' ') + 1, user.name.length)}}</td>
       <td><span>{{user.status}} </span><span class="online-dot" *ngIf="user.status == 'online'"> •</span><span class="offline-dot" *ngIf="user.status == 'offline'"> •</span></td>
     </tr>
   </table>
   <br/>
-  <button type="button" (click)="logout()" class="btn btn-light">Logout</button>
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  <br/>
+  <button type="button" (click)="logout()" class="btn btn-dark">Logout</button>
 </div>

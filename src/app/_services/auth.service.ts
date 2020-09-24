@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AuthService {
   // Variables
-  authUrl = 'http://localhost:8001/oauth/token';
+  loginUrl = 'http://localhost:8001/api/login';
+  signupUrl = 'http://localhost:8001/api/signup';
   apiUrl = 'http://localhost:8001/api';
   options: any;
   /**
@@ -23,28 +24,18 @@ export class AuthService {
       })
     };
   }
-  /**
-   * Get an access token
-   * @param e The email address
-   * @param p The password string
-   */
-  login(e: string, p: string) {
-    return this.http.post(this.authUrl, {
-      grant_type: 'password',
-      client_id: '2',
-      client_secret: 'PvTKbcsmnG6gm6qtQFfXlSrsP2StqZTFxCJhJaes',
-      username: e,
-      password: p,
-      scope: ''
-    }, this.options);
+
+  login(form) {
+    return this.http.post(this.loginUrl, form, this.options);
   }
-  /**
-   * Revoke the authenticated user token
-   */
+
+  signup(form) {
+    form.name = form.firstName + " " + form.lastName;
+    return this.http.post(this.signupUrl, form, this.options);
+  }
+
   logout() {
-    // this.options.headers.Authorization = 'Bearer ' + localStorage.getItem('access_token');
-    console.log(this.http.get(this.apiUrl + '/token/revoke', this.options));
-    return this.http.get(this.apiUrl + '/token/revoke', this.options);
+    return this.http.post(this.apiUrl + '/logout', this.options);
   }
 
   public getToken() {

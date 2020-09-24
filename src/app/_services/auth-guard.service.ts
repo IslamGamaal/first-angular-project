@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { LocalStorageService } from './local-storage.service'
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService {
+export class AuthGuardService implements CanActivate {
   /**
    * Constructor
    * @param router The router object
    */
   constructor(
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService,
   ) { }
   /**
    * Can activate function
@@ -18,10 +20,10 @@ export class AuthGuardService {
    * @param state The router state snapshot object
    */
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (localStorage.getItem('access_token')) { 
+    if (this.localStorage.getToken() && this.localStorage.loggedIn()) { 
       return true; 
     }
-    localStorage.removeItem('access_token');
+    this.localStorage.removeToken();
     this.router.navigateByUrl('/login');
     return false;
   }

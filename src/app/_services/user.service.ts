@@ -9,7 +9,13 @@ import { Observable } from 'rxjs';
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    //restful convention
+    getCount(): Observable<number>{
+        return this.http.get<number>(`${environment.apiUrl}/api/users-count`);
+    }
+
+    getUserByPage(pageNum: number, limit:number): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/api/users/` + limit + `?page=` + pageNum);
+    }
 
     getAll(): Observable<User[]>{
         return this.http.get<User[]>(`${environment.apiUrl}/api/users`);

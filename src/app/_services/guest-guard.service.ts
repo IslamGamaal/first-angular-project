@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
+import { LocalStorageService } from './local-storage.service';
+
 @Injectable({
   providedIn: 'root'
 })
-export class GuestGuardService {
+export class GuestGuardService implements CanActivate {
   /**
    * Constructor
    * @param router The router object
    */
   constructor(
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService
   ) { }
   /**
    * Can activate function
@@ -20,10 +23,10 @@ export class GuestGuardService {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {
-    if (!localStorage.getItem('access_token')) { 
+    if (!this.localStorage.getToken() || !this.localStorage.loggedIn()) { 
       return true; 
     }
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/users-list');
     return false;
   }
 }
