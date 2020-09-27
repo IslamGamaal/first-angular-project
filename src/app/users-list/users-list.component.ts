@@ -19,8 +19,9 @@ export class UsersListComponent implements OnInit {
   p: number = 1;
   limit: number = 5;
   searchQuery = new FormControl('');
-  public users?: User[];
-  public onlineUserId;
+  users?: User[] = [];
+  onlineUserId: number;
+
   constructor(private _userService:UserService, 
     private _authService:AuthService, 
     private router: Router,
@@ -40,6 +41,11 @@ export class UsersListComponent implements OnInit {
     });
   }
 
+  clickSearch() {
+    this.p = 1;
+    this.searchUsers();
+  }
+
   searchUsers() {
     if(this.searchQuery.value.trim() === "") {
       this.loadUsers();
@@ -47,6 +53,7 @@ export class UsersListComponent implements OnInit {
     }
     this._userService.searchUsers(this.searchQuery.value.trim(), this.p, this.limit).subscribe(data => {
       this.users = data.data;
+      console.log(data);
       this.p = data.current_page;
       this.pageCount = data.total;
     });
@@ -65,6 +72,7 @@ export class UsersListComponent implements OnInit {
       this.users = data.data;
       this.pageCount = data.total;
       this.p = data.current_page;
+      console.log(data);
       for(let user of this.users) {
         if(user.id === this.onlineUserId) {
           user.status = 'online';

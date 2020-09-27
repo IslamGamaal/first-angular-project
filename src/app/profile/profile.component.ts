@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
     this.currentUserId = parseInt(this._Activatedroute.snapshot.paramMap.get("id"));
     this._userService.getById(this.currentUserId).subscribe((data=> {
       this.user = data;
-      console.log(data);
     }))
   }
 
