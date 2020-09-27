@@ -13,8 +13,12 @@ export class UserService {
         return this.http.get<number>(`${environment.apiUrl}/api/users-count`);
     }
 
-    getUserByPage(pageNum: number, limit:number): Observable<any>{
+    getUsersByPage(pageNum: number, limit:number): Observable<any>{
         return this.http.get<any>(`${environment.apiUrl}/api/users/` + limit + `?page=` + pageNum);
+    }
+
+    searchUsers(searchQuery: string, pageNum: number, limit:number): Observable<any>{
+        return this.http.get<any>(`${environment.apiUrl}/api/users/query/` + limit + `/`+ searchQuery + `/?page=` + pageNum)
     }
 
     getAll(): Observable<User[]>{

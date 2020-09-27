@@ -42,7 +42,6 @@ export class LocalStorageService {
     var decodedToken;
     try {
       decodedToken = JSON.parse(atob(payload));
-      console.log(decodedToken)
       return decodedToken;
     } catch (error) {
       return null;

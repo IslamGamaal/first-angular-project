@@ -1,8 +1,20 @@
 <div>
   <h2>Users List</h2>
+  <form (submit)="searchUsers()" class="form-inline md-form ml-auto mb-8">
+    <input class="form-control ml-sm-2" [formControl]="searchQuery" type="text" style="margin-left: 69% !important;" placeholder="Search" aria-label="Search">
+    <button mdbBtn size="sm" color="warning" outline="true" rounded="true" class="btn btn-info"
+    type="submit">Search</button>
+  </form> 
   <br/>
   <br/>
-  <table>
+  <div class="row" *ngIf="!users.length">
+    <div class="col">
+        <div class="alert alert-danger">
+            <strong>Oops!</strong> It seems like desert here.
+        </div>
+    </div>
+  </div>
+  <table *ngIf="users.length">
     <tr>
       <th>Email</th>
       <th>Name</th>
@@ -15,7 +27,7 @@
     </tr>
   </table>
   <br/>
-  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+  <pagination-controls *ngIf="pageCount" (pageChange)="pageChanged($event)"></pagination-controls>
   <br/>
   <button type="button" (click)="logout()" class="btn btn-dark">Logout</button>
 </div>
